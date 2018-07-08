@@ -16,9 +16,10 @@ import org.springframework.stereotype.Component;
  * @date 2018/7/5
  */
 
-@ConfigurationProperties("distribute.lock.redis")
 @Setter
 @Getter
+@Component
+@ConfigurationProperties("distribute.lock.redis")
 public class RedisConfig {
 
   private String host;

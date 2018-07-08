@@ -1,12 +1,12 @@
 distribute:
-  redis:
-    pool:
-      host:
+  lock:
+    redis:
+      host: 10.97.212.118
       port: 6379
       passWord:
-      maxTotal: 1000                          #最大活动对象数
-      maxIdle: 100                            #最大能够保持idel状态的对象数
-      minIdle: 50                             #最小能够保持idel状态的对象数
+      maxTotal: 20                          #最大活动对象数
+      maxIdle: 10                            #最大能够保持idle状态的对象数
+      minIdle: 0                             #最小能够保持idle状态的对象数
       maxWaitMillis: 10000                    #当池内没有返回对象时，最大等待时间
       testOnBorrow: true                      #当调用borrow Object方法时， 是否进行有效性检查
       testOnReturn: true                      #当调用return Object方法时，是否进行有效性检查

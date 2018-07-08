@@ -1,4 +1,4 @@
-package com.example.distribute.lock.config;
+package com.example.distribute.lock;
 
 import javax.annotation.Resource;
 import org.springframework.boot.context.properties.ConfigurationProperties;

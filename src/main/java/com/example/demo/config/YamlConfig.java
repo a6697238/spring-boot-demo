@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConfigurationProperties(prefix  = "my")
-@Profile("test")
 public class YamlConfig {
 
   private String name;
