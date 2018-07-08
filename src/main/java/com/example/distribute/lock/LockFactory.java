@@ -3,6 +3,7 @@ package com.example.distribute.lock;
 import com.example.distribute.lock.client.RedisClient;
 import com.example.distribute.lock.impl.RedisLock;
 import javax.annotation.Resource;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
  * @date 2018/7/7
  */
 @Component
+@Profile("distribute-lock")
 public class LockFactory {
 
   @Resource

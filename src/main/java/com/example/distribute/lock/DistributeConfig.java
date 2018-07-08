@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Profile;
  */
 
 @Configuration
-@ComponentScan(value = "com.example.distribute.lock")
 @Profile("distribute-lock")
 public class DistributeConfig {
 

@@ -36,6 +36,12 @@ public class LockTest {
     RedisClient redisClient = lockFactory.getRedisClient();
     redisClient.setObj("ceshiLock", "TRUE");
     System.out.println(redisClient.getObj("ceshiLock", String.class));
+    redisClient.delObj("add1");
+    redisClient.increasement("add1");
+    redisClient.increasement("add1");
+    System.out.println(redisClient.getObj("add1", String.class));
+
+
   }
 
   @Test

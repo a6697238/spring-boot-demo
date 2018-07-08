@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 @ConfigurationProperties("distribute.lock.redis")
+@Profile("distribute-lock")
 public class RedisConfig {
 
   private String host;

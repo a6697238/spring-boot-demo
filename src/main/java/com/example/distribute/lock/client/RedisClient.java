@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -21,6 +22,7 @@ import redis.clients.util.Pool;
  * @date 2018/7/7
  */
 @Component
+@Profile("distribute-lock")
 public class RedisClient {
 
   private static final Logger LOG = LoggerFactory.getLogger(RedisClient.class);
@@ -70,7 +72,20 @@ public class RedisClient {
     call(new RedisCall<Boolean>() {
       @Override
       public Boolean run(Jedis jedis) {
-        String returnMsg = jedis.set(key, val);
+        String msg = jedis.set(key, val);
+        if (SET_SUCCESS.equals(msg)) {
+          return true;
+        }
+        throw new RuntimeException("设置值失败" + msg);
+      }
+    });
+  }
+
+  public void delObj(String key) {
+    call(new RedisCall<Boolean>() {
+      @Override
+      public Boolean run(Jedis jedis) {
+        jedis.del(key);
         return true;
       }
     });
@@ -81,9 +96,12 @@ public class RedisClient {
     call(new RedisCall<Boolean>() {
       @Override
       public Boolean run(Jedis jedis) {
-        jedis.set(key, val);
+        String msg = jedis.set(key, val);
         jedis.expire(key, expire);
-        return true;
+        if (SET_SUCCESS.equals(msg)) {
+          return true;
+        }
+        throw new RuntimeException("设置值失败" + msg);
       }
     });
   }
