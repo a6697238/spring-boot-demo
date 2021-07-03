@@ -1,0 +1,17 @@
+package order.discount
+import com.example.demo.entity.OrderEntity
+
+rule "discount_rule_1"
+  when
+    $order:OrderEntity(originalPrice<100)
+  then
+    $order.setRealPrice($order.getOriginalPrice());
+end
+
+
+rule "discount_rule_2"
+  when
+    $order:OrderEntity(originalPrice>100)
+  then
+    $order.setRealPrice($order.getOriginalPrice()-100);
+end

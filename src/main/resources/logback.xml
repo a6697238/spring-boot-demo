@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <if condition='isNull("APP_NAME")'>
+    <then>
+      <property name="APP_NAME" value="spring-demo"/>
+    </then>
+  </if>
+
+  <if condition='isNull("LOG_HOME")'>
+    <then>
+      <property name="LOG_HOME" value="./logs/${APP_NAME}"/>
+    </then>
+  </if>
+
+  <contextName>${APP_NAME}</contextName>
+
+  <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%red(%d{yyyy-MM-dd HH:mm:ss}) %green([%thread]) %highlight(%-5level) %boldMagenta(%logger) - %cyan(%msg%n)</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="defaultLogFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOG_HOME}/${APP_NAME}.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${LOG_HOME}/${APP_NAME}.%d{yyyy-MM-dd}.log
+      </fileNamePattern>
+      <maxHistory>30</maxHistory>
+    </rollingPolicy>
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %C{36}.%M:%L - %msg%n
+      </pattern>
+    </encoder>
+  </appender>
+
+  <!-- 仅记录fatal日志 -->
+  <appender name="fatalLogFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOG_HOME}/${APP_NAME}.FATAL</file>
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>ERROR</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${LOG_HOME}/${APP_NAME}.FATAL.%d{yyyy-MM-dd}.log
+      </fileNamePattern>
+      <maxHistory>30</maxHistory>
+    </rollingPolicy>
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %C{36}.%M:%L - %msg%n
+      </pattern>
+    </encoder>
+  </appender>
+
+  <if condition='isNull("logger.root")'>
+    <then>
+      <property name="ROOT_LEVEL" value="INFO"/>
+<!--      <property name="ROOT_LEVEL" value="DEBUG"/>-->
+    </then>
+    <else>
+      <property name="ROOT_LEVEL" value="${logger.root}"/>
+    </else>
+  </if>
+
+  <root level="${ROOT_LEVEL}">
+    <appender-ref ref="console"/>
+<!--    <appender-ref ref="defaultLogFile"/>-->
+<!--    <appender-ref ref="fatalLogFile"/>-->
+  </root>
+
+
+</configuration>
