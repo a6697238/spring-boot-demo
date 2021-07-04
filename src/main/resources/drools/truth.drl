@@ -1,0 +1,18 @@
+package truth.decide
+import com.example.demo.entity.TruthEntity
+
+
+
+rule "truth_rule_001"
+  when
+    $truth:TruthEntity(truth001 && truth002)
+  then
+    $truth.setReal(true);
+end
+
+rule "truth_rule_002"
+  when
+    $truth:TruthEntity(truth001 && !truth002)
+  then
+    $truth.setReal(true);
+end
