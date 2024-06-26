@@ -1,0 +1,145 @@
+PUT /website/article/1
+{
+  "title" : "my hadoop article111",
+  "content" : "es is very good",
+  "author_id" : 111,
+  "tags" : "tag001",
+  "employee-id" : "001 employee",
+  "employee-info" : "woman",
+   "employee-trace" : "employee-trace01"
+}
+
+PUT /website/article/2
+{
+  "title" : "my hadoop article111",
+  "content" : "es is very good",
+  "author_id" : 112,
+  "tags" : "tag001",
+  "employee-id" : "002 employee",
+  "employee-info" : "man",
+  "employee-trace" : "employee-trace02"
+}
+
+PUT /website/_mapping
+{
+  "properties": {
+    "employee-id": {
+      "type": "keyword"
+    },
+    "employee-info": {
+      "type": "keyword",
+      "index" : false
+    },
+    "employee-trace": {
+      "type": "text",
+      "index" : false
+    }
+  }
+}
+
+
+GET /website/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+GET /website/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "title": "my hadoop article111"
+          }
+        },
+        {
+          "match": {
+            "employee-id": "002 employee"
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET website/_mapping
+
+GET _cat/templates
+DELETE _index_template/template_template
+PUT _index_template/templateDemo
+{
+  "index_patterns": ["template_*"],
+  "template": {
+    "settings": {
+      "number_of_shards": 1
+    },
+    "mappings": {
+      "_source": {
+        "enabled": true
+      },
+      "properties": {
+        "host_name": {
+          "type": "keyword"
+        },
+        "host_meta": {
+          "type": "text"
+        },
+        "host_info": {
+          "type": "text",
+          "index" : false
+        }
+      }
+    },
+    "aliases": {
+      "template_index": { }
+    }
+  }
+}
+
+PUT template_001
+PUT template_002
+
+DELETE template_001
+DELETE template_002
+
+GET template_001
+
+PUT /template_001/_doc/1
+{
+  "host_name" : "host_name001",
+  "host_meta" : "es is very good",
+  "host_info" : "host_info 001"
+}
+
+POST _bulk
+{ "index" : { "_index" : "template_001", "_id" : "1" } }
+{ "host_name" : "host_name001","host_meta" : "es1 is very good","host_info" : "host_info 001"}
+{ "index" : { "_index" : "template_002", "_id" : "1" } }
+{ "host_name" : "host_name002","host_meta" : "es2 is very good","host_info" : "host_info 002"}
+
+GET template_index/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "match": {
+            "host_name": "host_name001"
+          }
+        },
+        {
+          "match": {
+            "host_name": "host_name002"
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+
+

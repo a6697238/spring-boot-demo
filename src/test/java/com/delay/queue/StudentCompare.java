@@ -13,14 +13,15 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Student {
+public class StudentCompare implements Comparable<StudentCompare>{
 
     private String name;  //名字
     private int score;    //分数
 
+    @Override
+    public int compareTo(StudentCompare o) {
+        return 0;
+    }
 
     //省略getter/setter
-
-
-
 }

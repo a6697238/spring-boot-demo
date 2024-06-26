@@ -58,6 +58,31 @@
         </dependency>
 
         <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-high-level-client</artifactId>
+            <version>7.10.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-client</artifactId>
+            <version>7.10.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>7.10.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <!--在引用时请在maven中央仓库搜索2.X最新版本号-->
+            <version>2.0.9</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>18.0</version>
@@ -98,12 +123,6 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
-                    <archive>
-                        <manifest>
-                            <!-- 加载主要运行类 -->
-                            <mainClass>com.cn.xxx.monitor.MonitorListener</mainClass>
-                        </manifest>
-                    </archive>
                 </configuration>
             </plugin>
         </plugins>
