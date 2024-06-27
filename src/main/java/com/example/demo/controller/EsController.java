@@ -35,5 +35,20 @@ public class EsController {
     }
 
 
+    @RequestMapping(value = "/addVal", method = RequestMethod.GET)
+    @ResponseBody
+    public String addVal() {
+        esService.addVal();
+        return "OK";
+    }
+
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    @ResponseBody
+    public String search(String val) {
+        esService.search(val);
+        return "OK";
+    }
+
 
 }

@@ -25,9 +25,9 @@ public class EsClientConfig {
     @Bean
     public RestHighLevelClient esClient() {
         CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-        credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials("elastic", "abcABC123!!!"));
+//        credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials("elastic", "abcABC123!!!"));
         return new RestHighLevelClient(
-                RestClient.builder(new HttpHost("9.135.178.177", 9200, "http")).setHttpClientConfigCallback(
+                RestClient.builder(new HttpHost("47.93.19.26", 9200, "http")).setHttpClientConfigCallback(
                         httpAsyncClientBuilder -> {
                             httpAsyncClientBuilder.disableAuthCaching();
                             return httpAsyncClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
